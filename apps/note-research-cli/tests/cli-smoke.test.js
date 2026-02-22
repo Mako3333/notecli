@@ -71,13 +71,14 @@ test("auth login supports env mode", () => {
   try {
     const login = runCli(["auth", "login", "--mode", "env"], {
       HOME: tmpHome,
+      USERPROFILE: tmpHome,
       NOTE_SESSION_V5: "session_from_env",
       NOTE_XSRF_TOKEN: "xsrf_from_env",
       NOTE_USER_ID: "user_from_env",
     });
     assert.equal(login.status, 0);
 
-    const status = runCli(["auth", "status"], { HOME: tmpHome });
+    const status = runCli(["auth", "status"], { HOME: tmpHome, USERPROFILE: tmpHome });
     assert.equal(status.status, 0);
     assert.match(status.stdout, /"authenticated": true/);
     assert.match(status.stdout, /"userId": "user_from_env"/);

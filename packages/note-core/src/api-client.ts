@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 import { AuthState, buildAuthHeaders, normalizeSessionCookie } from "./auth.js";
 
-const DEFAULT_USER_AGENT = process.env.NOTECLI_USER_AGENT || "note-research-cli";
+const DEFAULT_USER_AGENT = process.env.NOTECLI_USER_AGENT || "note-research-cli/0.2.0";
 
 function extractXsrfFromSetCookie(setCookies: string[] | undefined): string | undefined {
   if (!setCookies || setCookies.length === 0) return undefined;

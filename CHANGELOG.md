@@ -4,6 +4,9 @@ All notable changes to this project are documented in this file.
 
 ## [Unreleased]
 
+### Breaking
+- Default output profile changed to `minimal` for JSON-oriented commands. If you depended on previous raw payloads, use `--profile full`.
+
 ### Added
 - Interactive `auth login` flow with selectable modes: `browser` / `manual` / `env`.
 - `auth login --cookie-stdin` for safer non-interactive cookie input.

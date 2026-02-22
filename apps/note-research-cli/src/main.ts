@@ -8,7 +8,6 @@ import {
   hasAuth,
   loadAuthState,
   maskSecret,
-  normalizeSessionCookie,
   saveAuthState,
 } from "@note-research/note-core";
 import { resolveLoginState, type AuthLoginOptions } from "./auth/login.js";
@@ -396,7 +395,6 @@ auth
   .action(async (opts) => {
     try {
       const state = await resolveLoginState(opts as AuthLoginOptions);
-      state.cookie = normalizeSessionCookie(state.cookie);
       if (!state.cookie) {
         throw new Error("INPUT_ERROR: cookie が未設定です。");
       }
