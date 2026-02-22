@@ -8,10 +8,15 @@ All notable changes to this project are documented in this file.
 - Interactive `auth login` flow with selectable modes: `browser` / `manual` / `env`.
 - `auth login --cookie-stdin` for safer non-interactive cookie input.
 - Optional Playwright-assisted browser login via `auth login --browser`.
+- `--profile minimal|full` output controls (default: `minimal`).
 
 ### Changed
 - `auth login` no longer requires `--cookie` at parse-time; existing `--cookie` flow remains supported.
 - Improved authentication guidance messages to reference interactive login.
+- Browser login now guides users to run `npx playwright install chromium` when Chromium is missing.
+- Removed noisy XSRF acquisition warning during login flow.
+- Default output is now minimal for agent-friendly context handling; `--profile full` keeps raw payloads.
+- Improved competitor theme extraction to reduce bracket/sentence-level noise.
 
 ## [0.1.0] - 2026-02-21
 

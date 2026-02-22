@@ -34,6 +34,12 @@ test("CLI help contains primary command groups", () => {
   assert.doesNotMatch(result.stdout, /\bpublish\b/);
 });
 
+test("CLI version command works", () => {
+  const result = runCli(["--version"]);
+  assert.equal(result.status, 0);
+  assert.match(result.stdout.trim(), /^0\.2\.0$/);
+});
+
 test("user analyze requires --user option", () => {
   const result = runCli(["user", "analyze"]);
   assert.notEqual(result.status, 0);

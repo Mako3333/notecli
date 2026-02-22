@@ -1,6 +1,6 @@
 {
   "name": "note-research-cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "bin": {
     "note-research": "dist/main.js"
@@ -27,6 +27,7 @@
     "@note-research/note-core": "file:../../packages/note-core",
     "commander": "^12.1.0",
     "dotenv": "^16.3.1",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "playwright": "^1.58.2"
   }
 }

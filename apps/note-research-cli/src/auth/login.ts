@@ -29,6 +29,20 @@ function toInputError(message: string): Error {
   return new Error(`INPUT_ERROR: ${message}`);
 }
 
+function toRuntimeMessage(error: unknown): string {
+  if (error instanceof Error && typeof error.message === "string") {
+    return error.message;
+  }
+  return String(error);
+}
+
+export function chromiumInstallHintForError(message: string): string | null {
+  if (message.includes("Executable doesn't exist") || message.includes("Please run the following command")) {
+    return "Playwright のブラウザ実体が見つかりません。`npx playwright install chromium` を実行してください。";
+  }
+  return null;
+}
+
 function resolveMode(opts: AuthLoginOptions): LoginMode {
   const flagModes: LoginMode[] = [];
   if (opts.browser) flagModes.push("browser");
@@ -183,7 +197,14 @@ async function resolveBrowserState(opts: AuthLoginOptions): Promise<AuthState> {
 
   let browser: any;
   try {
-    browser = await playwright.chromium.launch({ headless: false });
+    try {
+      browser = await playwright.chromium.launch({ headless: false });
+    } catch (error) {
+      const message = toRuntimeMessage(error);
+      const hint = chromiumInstallHintForError(message);
+      if (hint) throw toInputError(hint);
+      throw error;
+    }
     const context = await browser.newContext();
     const page = await context.newPage();
 

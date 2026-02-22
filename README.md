@@ -26,7 +26,7 @@ This project is derived from:
 - Competitor analysis and diff reports
 - **Account analysis**: analyze content trends of a specific user (`user analyze`)
 - Draft create/update
-- JSON / Markdown outputs
+- Minimal-first JSON / Markdown outputs (`--profile full` for raw payload)
 
 ## Requirements
 
@@ -82,6 +82,7 @@ Playwrightがインストール済みなら、ブラウザログイン補助を�
 
 ```bash
 npm install -w note-research-cli playwright
+npx playwright install chromium
 node dist/main.js auth login --browser
 ```
 
@@ -113,12 +114,21 @@ echo "_note_session_v5=..." | node dist/main.js auth login --cookie-stdin --manu
 ## Usage
 
 ```bash
-node dist/main.js search-notes --query "AI" --json
+node dist/main.js search-notes --query "AI" --format json
+node dist/main.js search-notes --query "AI" --format json --profile full
 node dist/main.js competitor analyze --query "AI" --format json
 node dist/main.js report needs --query "AI" --format md
 node dist/main.js user analyze --user <urlname> --format json
 node dist/main.js draft create --title "test" --body-file ./draft.md --format json
 ```
+
+## Output Profile
+
+- Default: `--profile minimal`
+- Optional: `--profile full`
+
+`minimal` はエージェント実行向けにノイズを削った出力です。  
+`full` はデバッグ・互換用途で生データ寄りの出力を維持します。
 
 ## Known Limitations
 
