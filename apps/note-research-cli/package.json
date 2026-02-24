@@ -3,33 +3,30 @@
   "version": "0.2.0",
   "type": "module",
   "bin": {
-    "note-research": "dist/main.js"
+    "note-research": "dist/main.cjs"
   },
-  "main": "dist/main.js",
+  "main": "dist/main.cjs",
   "exports": {
-    ".": "./dist/main.js"
+    ".": "./dist/main.cjs"
   },
   "files": [
     "dist"
-  ],
-  "bundleDependencies": [
-    "@note-research/note-core"
   ],
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "npm run typecheck",
-    "test": "npm run build && node --test tests/*.test.js",
-    "start": "node dist/main.js",
-    "bundle:note-core": "node scripts/bundle-note-core.cjs"
+    "test": "npm run build && npm run bundle && node --test tests/*.test.js",
+    "start": "node dist/main.cjs",
+    "bundle:note-core": "node scripts/bundle-note-core.cjs",
+    "bundle": "node scripts/bundle.cjs",
+    "prepack": "npm run bundle"
   },
-  "dependencies": {
+  "devDependencies": {
     "@note-research/note-core": "file:../../packages/note-core",
     "commander": "^12.1.0",
     "dotenv": "^16.3.1",
+    "esbuild": "^0.25.0",
     "node-fetch": "^3.3.2"
-  },
-  "optionalDependencies": {
-    "playwright": "^1.58.2"
   }
 }

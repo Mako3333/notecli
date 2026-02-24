@@ -1,6 +1,5 @@
 import process from "node:process";
 import readline from "node:readline/promises";
-import { createRequire } from "node:module";
 import { AuthState, normalizeSessionCookie } from "@note-research/note-core";
 
 type LoginMode = "auto" | "browser" | "manual" | "env";
@@ -185,13 +184,13 @@ async function resolveBrowserState(opts: AuthLoginOptions): Promise<AuthState> {
     throw toInputError("--mode browser は対話端末で実行してください。");
   }
 
-  const require = createRequire(import.meta.url);
   let playwright: any;
   try {
-    playwright = require("playwright");
+    const mod = "playwright";
+    playwright = await import(mod);
   } catch {
     throw toInputError(
-      "browser モードには playwright が必要です。`npm install -w note-research-cli playwright` を実行してください。"
+      "browser モードには playwright が必要です。`npm install -g playwright && npx playwright install chromium` を実行してください。"
     );
   }
 

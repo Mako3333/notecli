@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 import "dotenv/config";
-import { createRequire } from "node:module";
 import { Command } from "commander";
 import {
   NoteApiClient,
@@ -29,14 +28,13 @@ import {
   type OutputProfile,
 } from "./output/formatters.js";
 
-const require = createRequire(import.meta.url);
-const cliPackage = require("../package.json") as { version?: string };
+declare const CLI_VERSION: string;
 
 const program = new Command();
 program
   .name("note-research")
   .description("note競合調査CLI（下書き作成/更新まで対応）")
-  .version(cliPackage.version || "0.0.0");
+  .version(CLI_VERSION);
 
 function getClient() {
   return new NoteApiClient(loadAuthState());

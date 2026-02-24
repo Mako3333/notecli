@@ -8,7 +8,7 @@ import { fileURLToPath } from "node:url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const cliPath = path.resolve(__dirname, "../dist/main.js");
+const cliPath = path.resolve(__dirname, "../dist/main.cjs");
 
 function runCli(args, envOverrides = {}) {
   return spawnSync(process.execPath, [cliPath, ...args], {
